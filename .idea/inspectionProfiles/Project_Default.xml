@@ -1,0 +1,37 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N802" />
+          <option value="N806" />
+          <option value="N803" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="chapter_three_assignment.fizzbuzz_assignment.number1" />
+          <option value="chapter_4_exercises.Nokia3310.Phone_book" />
+          <option value="chapter_4_exercises.Nokia3310.messages" />
+          <option value="chapter_4_exercises.Nokia3310.chat" />
+          <option value="chapter_4_exercises.Nokia3310.call_register" />
+          <option value="chapter_4_exercises.Nokia3310.message_setting" />
+          <option value="chapter_4_exercises.Nokia3310.register" />
+          <option value="set.__getitem__" />
+          <option value="dict.append" />
+          <option value="list.strip" />
+          <option value="str.charAt" />
+          <option value="int.__setitem__" />
+          <option value="chibuzo_assignment.pizza_hut.box_size" />
+          <option value="dict.upper" />
+          <option value="chibuzo_assignment.pizza_hut.number_hungry_persons" />
+          <option value="ticTacToe.TicToe.Tic_toe_Signs" />
+          <option value="ticTacToe.TicToe.tic_toe_Signs" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
