@@ -51,3 +51,11 @@ class BookInstance(models.Model):
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='A')
     book = models.ForeignKey(Book, on_delete=models.PROTECT)
     borrower = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+
+
+class Review(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    name = models.CharField(max_length=250)
+    message = models.CharField(max_length=500)
+    date = models.DateTimeField(auto_now_add=True)
+

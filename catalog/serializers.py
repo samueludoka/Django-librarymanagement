@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from catalog.models import Book, Authors
+from catalog.models import Book, Authors, Review
 
 
 class AuthorsSerializer(serializers.ModelSerializer):
@@ -10,11 +10,18 @@ class AuthorsSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    author = serializers.HyperlinkedRelatedField(
-        queryset=Authors.objects.all(),
-        view_name='author_detail'
-    )
+
 
     class Meta:
         model = Book
         fields = ['title', 'summary', 'isbn', 'author']
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ['book', 'name', 'message', 'date']
+
+        def created(self, validated_data):
+            book_id = self.context['book_pk']
+            return Review.objects.create(book_id=book_id, **validated_data)
