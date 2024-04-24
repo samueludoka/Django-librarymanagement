@@ -2,13 +2,18 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.template.context_processors import request
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.filters import SearchFilter
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.filters import SearchFilter, OrderingFilter
+
 
 from .models import Book, Review
 from .models import Authors
@@ -34,8 +39,10 @@ from .serializers import BookSerializer, AuthorsSerializer, ReviewSerializer
 
 class BookViewSet(ModelViewSet):
     pagination_class = DefaultPagination
+    filter_backends = [DjangoFilterBackend]
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    filterset_fields = ["title", "author"]
 
 
 class BookList(ListCreateAPIView):
@@ -85,6 +92,11 @@ class BookDetail(RetrieveUpdateDestroyAPIView):
 class AuthorsViewSet(ModelViewSet):
     queryset = Authors.objects.all()
     serializer_class = AuthorsSerializer
+
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['first_name', 'last_name']
+    Ordering_fields = ['first_name']
+    permission_classes = [IsAuthenticated]
 
 
 # class AuthorsList(ModelViewSet):
@@ -148,6 +160,4 @@ class ReviewViewSet(ModelViewSet):
 
     def get_serializer_context(self):
         return {'book_pk': self.kwargs['book_pk']}
-
-
 

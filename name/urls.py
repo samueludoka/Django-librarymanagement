@@ -23,4 +23,6 @@ urlpatterns = [
     path('auth/', include('django.contrib.auth.urls')),
     path('demo/', include('demo.urls')),
     path('catalog/', include('catalog.urls')),
+    path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.jwt')),
 ]
