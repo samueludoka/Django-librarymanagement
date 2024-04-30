@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import os
 from datetime import timedelta
 from pathlib import Path
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     'catalog',
     'userApp',
+    'corsheaders',
     'rest_framework',
     'django_filters',
     'djoser',
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -85,7 +88,7 @@ WSGI_APPLICATION = 'name.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'libraryms_db',
+        'NAME': 'book_db',
         'USER': 'root',
         'PASSWORD': 'password',
         'HOST': 'localHost'
@@ -144,6 +147,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
 
     ),
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ]
 }
 
 DJOSER = {
@@ -156,3 +162,13 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
     "ACCESS_TOKEN_LIFETIME": timedelta(days=365),
 }
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    '127.0.0.1:3000'
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+

@@ -14,12 +14,11 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.filters import SearchFilter, OrderingFilter
 
-
-from .models import Book, Review
+from .models import Book, Review, BookImage
 from .models import Authors
 import segno
 from .pagination import DefaultPagination
-from .serializers import BookSerializer, AuthorsSerializer, ReviewSerializer
+from .serializers import BookSerializer, AuthorsSerializer, ReviewSerializer, BookImageSerializer
 
 
 # Create your views here.
@@ -92,11 +91,10 @@ class BookDetail(RetrieveUpdateDestroyAPIView):
 class AuthorsViewSet(ModelViewSet):
     queryset = Authors.objects.all()
     serializer_class = AuthorsSerializer
-
+    permission_classes = [IsAuthenticated]
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['first_name', 'last_name']
     Ordering_fields = ['first_name']
-    permission_classes = [IsAuthenticated]
 
 
 # class AuthorsList(ModelViewSet):
@@ -161,3 +159,12 @@ class ReviewViewSet(ModelViewSet):
     def get_serializer_context(self):
         return {'book_pk': self.kwargs['book_pk']}
 
+
+class BookImageViewSet(ModelViewSet):
+    serializer_class = BookImageSerializer
+
+    def get_queryset(self):
+        return BookImage.objects.filter(book_id=self.kwargs['book_pk'])
+
+    def get_serializer_context(self):
+        return {'book_pk': self.kwargs['book_pk']}

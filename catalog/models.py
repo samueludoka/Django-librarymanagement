@@ -3,6 +3,8 @@ from uuid import uuid4
 from django.conf import settings
 from django.db import models
 
+from catalog.validators import validator_file_size
+
 
 # Create your models here.
 
@@ -58,4 +60,9 @@ class Review(models.Model):
     name = models.CharField(max_length=250)
     message = models.CharField(max_length=500)
     date = models.DateTimeField(auto_now_add=True)
+
+
+class BookImage(models.Model):
+    book = models.ForeignKey('Book', on_delete=models.CASCADE, related_name='book_image')
+    image = models.ImageField(upload_to='catalog/images', validators=[validator_file_size])
 
